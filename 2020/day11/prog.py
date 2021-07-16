@@ -58,7 +58,12 @@ while moved != 0:
                         moved += 1
     switch += 1
 stop = time.perf_counter()
-print("Part 1 - Output: {}\nTime: {}".format(occupied_places(data), stop - start))
+print(
+    "Part 1 - Output: {}\nTime: {}".format(
+        occupied_places(data),
+        stop - start,
+    )
+)
 
 
 # Part 2
@@ -119,4 +124,9 @@ while moved != 0:
     switch += 1
 
 stop = time.perf_counter()
-print("Part 2 -Output: {}\nTime: {}".format(occupied_places(data), stop - start))
+print(
+    "Part 2 -Output: {}\nTime: {}".format(
+        occupied_places(data),
+        stop - start,
+    )
+)
