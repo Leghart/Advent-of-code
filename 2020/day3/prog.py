@@ -8,17 +8,17 @@ def get_data(path):
         return list(f.read().split("\n"))
 
 
-def count_trees(G, tupla_config):
+def count_trees(data, tupla_config):
     row = 0
     position = 0
     counter = 0
-    row_len = len(G[0])
+    row_len = len(data[0])
     r, p = tupla_config
 
-    while row + 1 < len(G):
+    while row + 1 < len(data):
         position += p
         row += r
-        if G[row][position % row_len] == "#":
+        if data[row][position % row_len] == "#":
             counter += 1
     return counter
 
