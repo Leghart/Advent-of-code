@@ -1,22 +1,13 @@
-import numpy as np
+import time
+from itertools import combinations
 
-file = open("data", "r")
-w = file.read()
-file.close()
-a = w.split()
-a = np.array(a).astype(int)
+with open("data", "r") as f:
+    data = f.read()
 
-tmp = []
-for i in range(len(a)):
-    for it in range(len(a)):
-        for kk in range(len(a)):
-            if a[it] + a[i] + a[kk] == 2020:
-                tmp.append(a[it])
-                tmp.append(a[i])
-                tmp.append(a[kk])
-roz = len(tmp)
-roz = 3
-tmp = tmp[: int(roz)]
+data = [int(el) for el in data.strip().split("\n")]
 
-out = tmp[0] * tmp[1] * tmp[2]
-print(out)
+start = time.perf_counter()
+for c in combinations(data, 3):
+    if sum(c) == 2020:
+        print(c[0] * c[1] * c[2])
+stop = time.perf_counter()
