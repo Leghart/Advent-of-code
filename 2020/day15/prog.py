@@ -25,7 +25,7 @@ print(run(size=30000000))
 stop = time.perf_counter()
 print("time: ", stop - start)
 
-
+# # old version
 # def run1(size):
 #     for i in range(len(data), size):
 #         if data[i - 1] not in data[: i - 2]:
