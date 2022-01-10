@@ -41,7 +41,7 @@ def check_win(board, indexes):
         return None
 
 
-def run():
+def run1():
     for num in numbers:
         for board in boards:
             for id_row, row in enumerate(boards[board]):
@@ -57,19 +57,55 @@ def run():
                 return possible_pos
 
 
-possible_pos = run()
+def run2():
+    winners = []
+    for num in numbers:
+        for board in boards:
+            for id_row, row in enumerate(boards[board]):
+                try:
+                    id_col = row.index(num)
+                    pos = (id_row, id_col)
+                    indexes[board].append(pos)
+                except ValueError:
+                    pass
+
+                possible_pos = check_win(board, indexes)
+                if possible_pos is not None:
+                    if possible_pos["board"] not in [i["board"] for i in winners]:
+                        winners.append(possible_pos)
+                continue
+    return winners[-1]
+
+
+# possible_pos = run1()
+# row, col, board, last = (
+#     possible_pos["x"],
+#     possible_pos["y"],
+#     possible_pos["board"],
+#     possible_pos["last"],
+# )
+# winning_row = (
+#     boards[board][row] if row is not None else [row[col] for row in boards[board]]
+# )
+# sum_all = sum([sum(row) for row in boards[board]])
+# sum_marked = sum([boards[board][x][y] for x, y in indexes[board]])
+# sum_rest = sum_all - sum_marked
+# last_marked = boards[board][last[0]][last[1]]
+# print(sum_rest * last_marked)
+
+possible_pos = run2()
 row, col, board, last = (
     possible_pos["x"],
     possible_pos["y"],
     possible_pos["board"],
     possible_pos["last"],
 )
-
-winning_row = (
-    boards[board][row] if row is not None else [row[col] for row in boards[board]]
-)
-sum_all = sum([sum(row) for row in boards[board]])
-sum_marked = sum([boards[board][x][y] for x, y in indexes[board]])
-sum_rest = sum_all - sum_marked
+# sum_all = sum([sum(row) for row in boards[board]])
 last_marked = boards[board][last[0]][last[1]]
-print(sum_rest * last_marked)
+sum_all = sum(numbers[: last_marked + 1])
+print(([boards[board][x][y] for x, y in indexes[board]]))
+# sum_marked = sum(numbers[: numbers.index(last_marked) + 1])
+# print("Sum diff: ", (sum_all - sum_marked))
+# idx = numbers.index(last_marked)
+# print("Sum unmarked: ", sum(numbers[idx:]))
+# print("sum test: ", sum([6, 15, 25, 12, 22, 18, 20, 8, 19, 3, 26, 1]))
