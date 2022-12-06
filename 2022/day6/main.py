@@ -5,7 +5,7 @@ with open("data.txt", "r") as f:
 def get_marker(size: int) -> int:
     idx = size
     for _ in data[idx:]:
-        if len(set(data[idx - size : idx + 1])) == size + 1:
+        if len(set(data[idx - size : idx])) == size:
             return idx
         idx += 1
 
