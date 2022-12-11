@@ -1,3 +1,4 @@
+import math
 from collections import deque
 
 
@@ -25,7 +26,7 @@ class Monkey:
 
     def change_worry_level(self, item: int) -> int:
         # return item // 3  # part 1
-        return item  # part 2
+        return item % cm  # part 2
 
     def choose_mokey(self, item: int) -> int:
         return self.monkey_true if item % self.test_value == 0 else self.monkey_false
@@ -68,22 +69,23 @@ def load_monkeys() -> dict[int, Monkey]:
 
 
 monkeys = load_monkeys()
+
+
+cm = 1
+for m in monkeys.values():
+    cm *= (cm * m.test_value) // math.gcd(cm, m.test_value)
+
 rounds = 10000
 for round in range(rounds):
-    print(f"========= round {round} ============")
-    print([m.items for m in monkeys.values()])
+    print(f"========= {round=} ============")
     for monkey in monkeys.values():
         inspect_results = monkey.run_round()
         for key, items in inspect_results.items():
             monkeys[key].add_items(items)
-        print(f"Monkey {monkey.id} inspected: {monkey.inspects_number}")
-
-    if round == 20:
-        break
 
 best_two = sorted([m.inspects_number for m in monkeys.values()], reverse=True)[:2]
 result = 1
 for num in best_two:
     result *= num
 
-print("Part 1: ", result)
+print("Result: ", result)
