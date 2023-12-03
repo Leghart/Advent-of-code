@@ -123,9 +123,18 @@ fn deep_number(idx: usize, data: &String) -> usize {
         .unwrap()
 }
 
-fn find_near_numbers(idx: i32, data: &String) -> Vec<usize> {
+fn find_near_numbers(idx: i32, data: &String, size: i32) -> Vec<usize> {
     let mut numbers: Vec<usize> = vec![];
-    let directions: [i32; 8] = [-11, -10, -9, -1, 1, 9, 10, 11];
+    let directions: [i32; 8] = [
+        -1 * (size + 1),
+        -1 * size,
+        -1 * (size - 1),
+        -1,
+        1,
+        size - 1,
+        size,
+        size + 1,
+    ];
     for n in directions {
         let nidx = n + idx;
         if nidx >= 0
@@ -143,14 +152,14 @@ fn find_near_numbers(idx: i32, data: &String) -> Vec<usize> {
 
 pub fn part2() -> Option<usize> {
     let pure_data = load_data();
+    let size = pure_data.get(0)?.len();
     let data = pure_data.join("");
 
     let mut result = 0;
 
     for (i, c) in data.chars().enumerate() {
         if c == '*' {
-            let numbers = find_near_numbers(i as i32, &data);
-            println!("{:?}", numbers);
+            let numbers = find_near_numbers(i as i32, &data, size as i32);
             if numbers.len() == 2 {
                 result += numbers.iter().product::<usize>();
             }
