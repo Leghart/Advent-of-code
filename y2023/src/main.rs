@@ -1,5 +1,5 @@
-mod day7;
-use day7::code::{part1, part2};
+mod day9;
+use day9::code::{part1, part2};
 
 fn main() {
     match part1() {
