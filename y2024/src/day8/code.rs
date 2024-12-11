@@ -97,7 +97,6 @@ pub fn part2() -> Option<usize> {
                     if matrix[ddx as usize][ddy as usize] == '.' {
                         empty_place_hits += 1;
                     }
-                    count += 1;
                 }
                 tmp_dx = ddx as isize;
                 tmp_dy = ddy as isize;
@@ -113,7 +112,6 @@ pub fn part2() -> Option<usize> {
                     if matrix[ddx as usize][ddy as usize] == '.' {
                         empty_place_hits += 1;
                     }
-                    count += 1;
                 }
                 tmp_dx = ddx as isize;
                 tmp_dy = ddy as isize;
