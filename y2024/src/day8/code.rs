@@ -78,10 +78,9 @@ pub fn part2() -> Option<usize> {
         }
     }
 
-    let mut count = 0;
     let mut unique: Vec<(usize, usize)> = Vec::new();
-    let mut nmatrix: Vec<Vec<char>> = Vec::from(matrix.clone());
 
+    let mut empty_place_hits = 0;
     for key in antennas.keys() {
         for comb in antennas[key].clone().into_iter().combinations(2) {
             let dx: isize = (comb[1].0 as isize - comb[0].0 as isize);
@@ -96,7 +95,7 @@ pub fn part2() -> Option<usize> {
                 if !unique.contains(&(ddx as usize, ddy as usize)) {
                     unique.push((ddx as usize, ddy as usize));
                     if matrix[ddx as usize][ddy as usize] == '.' {
-                        nmatrix[ddx as usize][ddy as usize] = '#';
+                        empty_place_hits += 1;
                     }
                     count += 1;
                 }
@@ -112,7 +111,7 @@ pub fn part2() -> Option<usize> {
                 if !unique.contains(&(ddx as usize, ddy as usize)) {
                     unique.push((ddx as usize, ddy as usize));
                     if matrix[ddx as usize][ddy as usize] == '.' {
-                        nmatrix[ddx as usize][ddy as usize] = '#';
+                        empty_place_hits += 1;
                     }
                     count += 1;
                 }
@@ -121,12 +120,8 @@ pub fn part2() -> Option<usize> {
             }
         }
     }
-    for l in nmatrix {
-        let s: String = l.iter().collect();
-        println!("{}", s);
-    }
 
-    Some(count)
+    Some(antennas.iter().map(|(_, v)| v.len()).sum::<usize>() + empty_place_hits)
 }
 
 fn is_in_range(point: (isize, isize), matrix: &Vec<Vec<char>>) -> bool {
